@@ -1,7 +1,14 @@
 import { combineReducers } from 'redux';
+import navigation from './navigation/navigation-reducer';
+import {
+  topStoryIds,
+  items,
+} from './api/api-reducers';
 
 const combinedReducers = combineReducers({
-  test: (state = {}) => state,
+  navigation,
+  topStoryIds,
+  items,
 });
 
 export default function indexReducer(state, action) {

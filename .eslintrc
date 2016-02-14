@@ -15,5 +15,9 @@
     "__DEV__": false
   },
   "rules": {
+    "react/jsx-no-bind": [2, {
+      "allowArrowFunctions": true
+    }],
+    "arrow-body-style": 0
   }
 }

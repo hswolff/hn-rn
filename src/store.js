@@ -4,7 +4,7 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import rootReducer from './reducers';
+import rootReducer from './root-reducer';
 
 const noopMiddleware = () => next => action => next(action);
 
