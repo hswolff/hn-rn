@@ -13,7 +13,7 @@ export default class HNProvider extends Component {
   state = {
   };
 
-  async componentWillMount() {
+  componentWillMount() {
     this.setState({
       store: store.create(),
     });
