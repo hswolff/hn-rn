@@ -40,10 +40,11 @@ export default class ItemList extends Component {
         initialListSize={20}
         pageSize={10}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => {
+        renderRow={(rowData, sectionId, rowId) => {
           return (
             <ItemCell
               {...rowData}
+              cellNumber={parseInt(rowId, 10) + 1}
               onPress={() => this.props.onRowPress(rowData)}
             />
           );
