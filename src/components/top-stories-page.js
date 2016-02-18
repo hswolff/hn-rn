@@ -22,6 +22,8 @@ export class TopStoriesPage extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     fetchTopStoryItems: PropTypes.func.isRequired,
+    navigator: PropTypes.object,
+    routes: PropTypes.object,
   };
 
   static defaultProps = {
@@ -35,7 +37,14 @@ export class TopStoriesPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ItemList items={this.props.items} />
+        <ItemList
+          items={this.props.items}
+          onRowPress={(item) => {
+            this.props.navigator.push(
+              this.props.routes.getItemDetailsPage(item.id)
+            );
+          }}
+        />
       </View>
     );
   }

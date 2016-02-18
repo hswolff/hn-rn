@@ -7,6 +7,7 @@ import React, {
 import { connect } from 'react-redux';
 import TabNavigator from 'react-native-tab-navigator';
 
+import * as Routes from '../routes';
 import { NavigationItems } from './navigation-constants';
 import { changeNavigationItem } from './navigation-actions';
 
@@ -19,6 +20,7 @@ export class TabBar extends Component {
   static propTypes = {
     changeNavigationItem: PropTypes.func.isRequired,
     selectedItem: PropTypes.object.isRequired,
+    navigator: PropTypes.object,
   };
 
   render() {
@@ -39,7 +41,10 @@ export class TabBar extends Component {
                 this.props.changeNavigationItem(item);
               }}
             >
-              <NavItemComponent />
+              <NavItemComponent
+                navigator={this.props.navigator}
+                routes={Routes}
+              />
             </TabNavigator.Item>
           );
         })}

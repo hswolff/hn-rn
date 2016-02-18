@@ -3,13 +3,16 @@ import React, {
 } from 'react-native';
 
 import Provider from './provider';
-import TabBar from './navigation/tab-bar';
+import RootNavigator from './navigation/root-navigator';
+import * as Routes from './routes';
 
 export default class HackerNews extends Component {
   render() {
     return (
       <Provider>
-        <TabBar />
+        <RootNavigator
+          initialRoute={Routes.getTabBar()}
+        />
       </Provider>
     );
   }

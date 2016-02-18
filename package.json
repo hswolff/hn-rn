@@ -11,6 +11,7 @@
     "url": "git://github.com/hswolff/hn-rn.git"
   },
   "dependencies": {
+    "@exponent/react-native-navigator": "^0.4.1",
     "firebase": "^2.4.0",
     "lodash": "^4.3.0",
     "react": "^0.14.7",
