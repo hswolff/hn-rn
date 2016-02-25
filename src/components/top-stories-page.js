@@ -66,5 +66,7 @@ export default connect(
   },
   {
     fetchTopStoryItems,
-  }
+  },
+  undefined,
+  { pure: false }
 )(TopStoriesPage);
