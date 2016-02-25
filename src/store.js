@@ -1,21 +1,29 @@
 import {
-  createStore,
+  createStore as reduxCreateStore,
   applyMiddleware,
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import rootReducer from './root-reducer';
 
-const noopMiddleware = () => next => action => next(action);
+export function createMiddleware(...middleware) {
+  const defaultMiddleware = [
+    thunkMiddleware,
+  ];
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunkMiddleware,
-  __DEV__ ? createLogger({
-    collapsed: false,
-    duration: true,
-  }) : noopMiddleware,
-)(createStore);
+  if (__DEV__) {
+    defaultMiddleware.push(createLogger({
+      collapsed: false,
+      duration: true,
+    }));
+  }
 
-export function create(initialState) {
-  return createStoreWithMiddleware(rootReducer, initialState);
+  return applyMiddleware.apply(undefined, [
+    ...defaultMiddleware,
+    ...middleware,
+  ]);
+}
+
+export function createStore(initialState, middleware = createMiddleware()) {
+  return reduxCreateStore(rootReducer, initialState, middleware);
 }
