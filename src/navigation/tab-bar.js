@@ -2,9 +2,9 @@ import React, {
   PropTypes,
   Component,
   StyleSheet,
-  Image,
 } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import TabNavigator from 'react-native-tab-navigator';
 
 import * as Routes from '../routes';
@@ -35,8 +35,12 @@ export class TabBar extends Component {
               title={item.title}
               selected={this.props.selectedItem.id === item.id}
               selectedTitleStyle={styles.selectedTitleStyle}
-              renderIcon={() => <Image /> }
-              renderSelectedIcon={() => <Image /> }
+              renderIcon={() => (
+                <Icon name={item.iconName} size={28} color="#000" />
+              )}
+              renderSelectedIcon={() => (
+                <Icon name={item.iconName} size={28} color="#EF701E" />
+              )}
               onPress={() => {
                 this.props.changeNavigationItem(item);
               }}

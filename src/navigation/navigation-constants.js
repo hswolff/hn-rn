@@ -10,6 +10,7 @@ import ItemListPage from '../components/item-list-page';
 export const TOP = {
   id: 'top-stories',
   title: 'Top',
+  iconName: 'hacker-news',
   component: ItemListPage,
   componentProps: {
     fetchAction: fetchTopStoryItems,
@@ -20,6 +21,7 @@ export const TOP = {
 const ASK_STORIES = {
   id: 'ask-stories',
   title: 'Ask',
+  iconName: 'question-circle',
   component: ItemListPage,
   componentProps: {
     fetchAction: fetchAskItems,
@@ -30,6 +32,7 @@ const ASK_STORIES = {
 const SHOW_STORIES = {
   id: 'show-stories',
   title: 'Show',
+  iconName: 'bullhorn',
   component: ItemListPage,
   componentProps: {
     fetchAction: fetchShowItems,
@@ -40,6 +43,7 @@ const SHOW_STORIES = {
 const JOB_STORIES = {
   id: 'job-stories',
   title: 'Job',
+  iconName: 'briefcase',
   component: ItemListPage,
   componentProps: {
     fetchAction: fetchJobItems,
