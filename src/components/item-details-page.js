@@ -9,8 +9,8 @@ import { connect } from 'react-redux';
 import {
   fetchItems,
 } from '../api/api-actions';
-import ItemCell from '../components/item-cell';
-import ItemList from '../components/item-list';
+import ItemCell from './item-cell';
+import CommentList from './comment-list';
 
 const styles = StyleSheet.create({
   container: {
@@ -44,7 +44,7 @@ export class ItemDetailsPage extends Component {
           backgroundColor: 'black',
         }}
         />
-        <ItemList items={this.props.kids} />
+        <CommentList items={this.props.kids} />
       </View>
     );
   }
