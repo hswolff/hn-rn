@@ -48,7 +48,7 @@ export default class ItemCell extends Component {
       'poll',
       'pollopt',
     ]),
-    url: PropTypes.string.isRequired,
+    url: PropTypes.string,
     descendants: PropTypes.number,
     kids: PropTypes.arrayOf(PropTypes.number),
     dead: PropTypes.bool,

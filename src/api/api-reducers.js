@@ -8,10 +8,7 @@ import {
 export const topStoryIds = createReducer([], {
   [FETCH_TOP_STORY_IDS](state, action) {
     if (action.payload) {
-      return [
-        ...state,
-        ...action.payload,
-      ];
+      return action.payload;
     }
 
     return state;
