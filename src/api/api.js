@@ -3,14 +3,11 @@ import Firebase from 'firebase';
 const connection = new Firebase('https://hacker-news.firebaseio.com/v0/');
 
 export class HackerNewsAPI {
-  fetchTopStories() {
-    return new Promise((resolve) => {
-      this.topStoriesIdsRef().once('value', snapshot => {
-        const topStoriesIds = snapshot.val().splice(0, 20);
-
-        resolve(topStoriesIds);
-      });
-    });
+  constructor() {
+    this.fetchTopStories = this.fetchRef.bind(this, this.topStoriesIdsRef());
+    this.fetchAskStories = this.fetchRef.bind(this, this.askStoriesRef());
+    this.fetchShowStories = this.fetchRef.bind(this, this.showStoriesRef());
+    this.fetchJobStories = this.fetchRef.bind(this, this.jobStoriesRef());
   }
 
   fetchItems(items = []) {
@@ -45,8 +42,14 @@ export class HackerNewsAPI {
     });
   }
 
-  topStoriesIdsRef() {
-    return connection.child('topstories/');
+  fetchRef(connectionRef) {
+    return new Promise((resolve) => {
+      connectionRef.once('value', snapshot => {
+        const topStoriesIds = snapshot.val().splice(0, 20);
+
+        resolve(topStoriesIds);
+      });
+    });
   }
 
   itemRef(itemId) {
@@ -55,6 +58,22 @@ export class HackerNewsAPI {
 
   userRef(userId) {
     return connection.child(`user/${userId}`);
+  }
+
+  topStoriesIdsRef() {
+    return connection.child('topstories/');
+  }
+
+  askStoriesRef() {
+    return connection.child('askstories/');
+  }
+
+  showStoriesRef() {
+    return connection.child('showstories/');
+  }
+
+  jobStoriesRef() {
+    return connection.child('jobstories/');
   }
 }
 

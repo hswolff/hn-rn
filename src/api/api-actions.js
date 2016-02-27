@@ -65,3 +65,30 @@ export function fetchTopStories() {
 export function fetchTopStoryItems() {
   return fetchTopLevelIdsAndItems(fetchTopStories, 'topStoryIds');
 }
+
+export const FETCH_ASK_STORIES = 'FETCH_ASK_STORIES';
+export function fetchAskStories() {
+  return fetchTopLevelIds(api().fetchAskStories, FETCH_ASK_STORIES);
+}
+
+export function fetchAskItems() {
+  return fetchTopLevelIdsAndItems(fetchAskStories, 'askIds');
+}
+
+export const FETCH_SHOW_STORIES = 'FETCH_SHOW_STORIES';
+export function fetchShowStories() {
+  return fetchTopLevelIds(api().fetchShowStories, FETCH_SHOW_STORIES);
+}
+
+export function fetchShowItems() {
+  return fetchTopLevelIdsAndItems(fetchShowStories, 'showIds');
+}
+
+export const FETCH_JOB_STORIES = 'FETCH_JOB_STORIES';
+export function fetchJobStories() {
+  return fetchTopLevelIds(api().fetchJobStories, FETCH_JOB_STORIES);
+}
+
+export function fetchJobItems() {
+  return fetchTopLevelIdsAndItems(fetchJobStories, 'jobIds');
+}
