@@ -7,6 +7,8 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+import { timeAgo } from '../utils/time-ago';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
 
 export default class ItemCell extends Component {
   static propTypes = {
-    onPress: PropTypes.func.isRequired,
+    onPress: PropTypes.func,
     cellNumber: PropTypes.number,
 
     by: PropTypes.string.isRequired,
@@ -77,8 +79,8 @@ export default class ItemCell extends Component {
 
             <Text>{this.props.score} points</Text>
             <Text>by {this.props.by}</Text>
-            <Text>{this.props.time} hours ago</Text>
-            <Text>{(this.props.kids || []).length} comments</Text>
+            <Text>{timeAgo(this.props.time)} ago</Text>
+            <Text>{this.props.descendants} comments</Text>
           </View>
           <View style={styles.commentContainer}>
             <Text>Comments</Text>
