@@ -4,7 +4,6 @@ import {
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import rootReducer from './root-reducer';
 
 export function createMiddleware(...middleware) {
   const defaultMiddleware = [
@@ -24,6 +23,10 @@ export function createMiddleware(...middleware) {
   ]);
 }
 
-export function createStore(initialState, middleware = createMiddleware()) {
+export function createStore(
+  rootReducer,
+  initialState,
+  middleware = createMiddleware()
+) {
   return reduxCreateStore(rootReducer, initialState, middleware);
 }

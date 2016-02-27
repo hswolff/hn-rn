@@ -6,6 +6,7 @@ import {
   createMiddleware,
   createStore,
 } from './store';
+import rootReducer from './root-reducer';
 import { Provider } from 'react-redux';
 import * as storage from 'redux-storage';
 import createEngine from 'redux-storage-engine-reactnativeasyncstorage';
@@ -16,19 +17,32 @@ export default class HNProvider extends Component {
     children: PropTypes.element.isRequired,
   };
 
+  constructor(...args) {
+    super(args);
+
+    this.createStore();
+  }
+
   state = {
   };
 
-  componentWillMount() {
+  async createStore() {
     const engine = reduxStorageDebounce(createEngine('reduxStore'), 1500);
+    const reduxStorageLoader = storage.createLoader(engine);
 
-    engine.load().then(storedState => {
-      const middleware = createMiddleware(storage.createMiddleware(engine));
+    const store = createStore(
+      storage.reducer(rootReducer),
+      undefined,
+      createMiddleware(storage.createMiddleware(engine))
+    );
 
+    try {
+      await reduxStorageLoader(store);
+    } finally {
       this.setState({
-        store: createStore(storedState, middleware),
+        store,
       });
-    });
+    }
   }
 
   render() {
