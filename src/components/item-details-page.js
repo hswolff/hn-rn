@@ -3,6 +3,7 @@ import React, {
   Component,
   StyleSheet,
   View,
+  InteractionManager,
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -31,8 +32,18 @@ export class ItemDetailsPage extends Component {
     items: [],
   };
 
-  componentDidMount() {
-    this.props.fetchItems(this.props.item.kids);
+  state = {
+    interactionsCompleted: false,
+  };
+
+  componentWillMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({
+        interactionsCompleted: true,
+      }, () => {
+        this.props.fetchItems(this.props.item.kids);
+      });
+    });
   }
 
   render() {
