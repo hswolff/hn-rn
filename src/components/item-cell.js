@@ -6,6 +6,7 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { timeAgo } from '../utils/time-ago';
 
@@ -15,19 +16,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
 
-    borderColor: 'black',
+    borderColor: '#ccc',
     borderBottomWidth: 1,
   },
-  leftContainer: {
-    width: 50,
+
+  cellNumberContainer: {
+    width: 30,
+    alignItems: 'center',
     alignSelf: 'center',
+    paddingRight: 8,
   },
-  rightContainer: {
+  cellNumber: {
+    fontSize: 16,
+  },
+
+  contentContainer: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
+  title: {
+    fontSize: 16,
+    paddingBottom: 8,
+  },
+  contentFooter: {
+    flexDirection: 'row',
+  },
+  footerText: {
+    fontSize: 12,
+  },
+
   commentContainer: {
     width: 50,
-    alignSelf: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  commentText: {
+    paddingTop: 6,
   },
 });
 
@@ -70,20 +95,24 @@ export default class ItemCell extends Component {
       >
         <View style={styles.container}>
           {this.props.cellNumber ?
-            (<View style={styles.leftContainer}>
-              <Text>{this.props.cellNumber}</Text>
+            (<View style={styles.cellNumberContainer}>
+              <Text style={styles.cellNumber}>{this.props.cellNumber}</Text>
             </View>)
           : null}
-          <View style={styles.rightContainer}>
-            <Text>{this.props.title}</Text>
+          <View style={styles.contentContainer}>
+            <Text style={styles.title}>{this.props.title}</Text>
 
-            <Text>{this.props.score} points</Text>
-            <Text>by {this.props.by}</Text>
-            <Text>{timeAgo(this.props.time)} ago</Text>
-            <Text>{this.props.descendants} comments</Text>
+            <View style={styles.contentFooter}>
+              <Text style={styles.footerText}>
+                {this.props.score} points
+                by {this.props.by}
+                {timeAgo(this.props.time)} ago
+              </Text>
+            </View>
           </View>
           <View style={styles.commentContainer}>
-            <Text>Comments</Text>
+            <Icon name={'comment'} size={34} color="#222" />
+            <Text style={styles.commentText}>{this.props.descendants}</Text>
           </View>
         </View>
       </TouchableHighlight>
