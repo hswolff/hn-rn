@@ -1,12 +1,12 @@
 import createReducer from '../utils/create-reducer';
 
 import {
-  FETCH_TOP_STORY_IDS,
+  FETCH_TOP_STORIES,
   FETCH_ITEMS,
 } from './api-actions';
 
 export const topStoryIds = createReducer([], {
-  [FETCH_TOP_STORY_IDS](state, action) {
+  [FETCH_TOP_STORIES](state, action) {
     if (action.payload) {
       return action.payload;
     }

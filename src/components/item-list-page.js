@@ -4,11 +4,9 @@ import React, {
   StyleSheet,
   View,
 } from 'react-native';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import {
-  fetchTopStoryItems,
-} from '../api/api-actions';
 import ItemList from '../components/item-list';
 
 const styles = StyleSheet.create({
@@ -18,10 +16,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export class TopStoriesPage extends Component {
+export class ItemListPage extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    fetchTopStoryItems: PropTypes.func.isRequired,
+    fetchAction: PropTypes.func.isRequired,
     navigator: PropTypes.object,
     routes: PropTypes.object,
   };
@@ -31,7 +29,7 @@ export class TopStoriesPage extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchTopStoryItems();
+    this.props.fetchAction();
   }
 
   render() {
@@ -50,12 +48,12 @@ export class TopStoriesPage extends Component {
   }
 }
 
-export default connect(
-  (state) => {
-    const topStoryIds = state.topStoryIds;
+const ItemListPageConnected = connect(
+  (state, props) => {
+    const itemIds = props.getItemIds(state);
     return {
-      items: topStoryIds.reduce((all, storyId) => {
-        const item = state.items[storyId];
+      items: itemIds.reduce((all, itemId) => {
+        const item = state.items[itemId];
         // Only add items if they exist.
         if (item) {
           all.push(item);
@@ -64,9 +62,15 @@ export default connect(
       }, []),
     };
   },
-  {
-    fetchTopStoryItems,
+  (dispatch, props) => {
+    return bindActionCreators({
+      fetchAction: props.fetchAction,
+    }, dispatch);
   },
   undefined,
   { pure: false }
-)(TopStoriesPage);
+)(ItemListPage);
+
+ItemListPageConnected.propTypes.getItemIds = PropTypes.func.isRequired;
+
+export default ItemListPageConnected;

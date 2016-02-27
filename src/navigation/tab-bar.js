@@ -44,6 +44,7 @@ export class TabBar extends Component {
               <NavItemComponent
                 navigator={this.props.navigator}
                 routes={Routes}
+                {...item.componentProps}
               />
             </TabNavigator.Item>
           );
