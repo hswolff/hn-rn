@@ -51,6 +51,7 @@ export class ItemListPage extends Component {
               />
             );
           }}
+          onRefresh={() => this.props.fetchAction()}
         />
       </View>
     );

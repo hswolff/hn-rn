@@ -47,10 +47,14 @@ export class ItemDetailsPage extends Component {
       this.setState({
         interactionsCompleted: true,
       }, () => {
-        this.props.fetchItems(this.props.item.kids);
+        this.fetchData();
       });
     });
   }
+
+  fetchData = () => {
+    return this.props.fetchItems(this.props.item.kids);
+  };
 
   render() {
     return (
@@ -67,6 +71,7 @@ export class ItemDetailsPage extends Component {
               />
             );
           }}
+          onRefresh={() => this.fetchData()}
         />
       </View>
     );

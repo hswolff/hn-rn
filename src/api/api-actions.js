@@ -50,7 +50,7 @@ export function fetchTopLevelIdsAndItems(
   stateProp
 ) {
   return (dispatch, getState) => {
-    fetchTopLevelAction()(dispatch).then(() => {
+    return fetchTopLevelAction()(dispatch).then(() => {
       const itemIds = getState()[stateProp];
       return fetchItems(itemIds)(dispatch);
     });
