@@ -2,8 +2,8 @@
 
 [Hacker News](https://news.ycombinator.com/) app written in [React Native](https://facebook.github.io/react-native/).
 
-![Preview Image](https://github.com/hswolff/hn-rn/raw/master/screenshots/top-stories.png)
-![Preview Image](https://github.com/hswolff/hn-rn/raw/master/screenshots/item-details.png)
+<img src="https://github.com/hswolff/hn-rn/raw/master/screenshots/top-stories.png" width="200" />
+<img src="https://github.com/hswolff/hn-rn/raw/master/screenshots/item-details.png" width="200" />
 
 
 ## Development
