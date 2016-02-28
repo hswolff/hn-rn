@@ -11,12 +11,18 @@ import {
   fetchItems,
 } from '../api/api-actions';
 import ItemCell from './item-cell';
-import CommentList from './comment-list';
+import CommentCell from './comment-cell';
+import ItemListView from './item-list-view';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
+  },
+
+  commentCell: {
+    borderColor: '#333',
+    borderBottomWidth: 1,
   },
 });
 
@@ -50,12 +56,18 @@ export class ItemDetailsPage extends Component {
     return (
       <View style={styles.container}>
         <ItemCell {...this.props.item} />
-        <View style={{
-          height: 2,
-          backgroundColor: 'black',
-        }}
+        <ItemListView
+          items={this.props.kids}
+          renderRow={(rowData, sectionId, rowId) => {
+            return (
+              <CommentCell
+                {...rowData}
+                style={styles.commentCell}
+                cellNumber={parseInt(rowId, 10) + 1}
+              />
+            );
+          }}
         />
-        <CommentList items={this.props.kids} />
       </View>
     );
   }

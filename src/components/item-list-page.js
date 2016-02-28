@@ -7,7 +7,8 @@ import React, {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import ItemList from '../components/item-list';
+import ItemCell from './item-cell';
+import ItemListView from '../components/item-list-view';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,11 +36,19 @@ export class ItemListPage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ItemList
+        <ItemListView
           items={this.props.items}
-          onRowPress={(item) => {
-            this.props.navigator.push(
-              this.props.routes.getItemDetailsPage(item.id)
+          renderRow={(rowData, sectionId, rowId) => {
+            return (
+              <ItemCell
+                {...rowData}
+                cellNumber={parseInt(rowId, 10) + 1}
+                onPress={() => {
+                  this.props.navigator.push(
+                    this.props.routes.getItemDetailsPage(rowData.id)
+                  );
+                }}
+              />
             );
           }}
         />

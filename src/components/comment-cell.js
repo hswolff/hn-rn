@@ -7,6 +7,7 @@ import React, {
   TouchableOpacity,
 } from 'react-native';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import HTMLView from 'react-native-htmlview';
 
 import {
@@ -19,17 +20,40 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    padding: 10,
-
-    borderColor: 'black',
-    borderBottomWidth: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
+  containerExpanded: {
+    paddingBottom: 10,
   },
   header: {
     flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    paddingLeft: 0,
+  },
+  expandedIcon: {
+    paddingRight: 10,
+  },
+
+  loadChildren: {
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 4,
+    marginTop: 20,
+  },
+  loadChildrenText: {
+    textAlign: 'center',
   },
 
   kidContainer: {
-    paddingLeft: 20,
+    marginTop: 10,
+    paddingLeft: 15,
+    borderColor: '#333',
+    borderLeftWidth: 1,
   },
 });
 
@@ -37,6 +61,7 @@ export class CommentCell extends Component {
   static propTypes = {
     onPress: PropTypes.func,
     fetchItems: PropTypes.func,
+    style: PropTypes.any,
     kidsItems: PropTypes.arrayOf(PropTypes.object),
 
     by: PropTypes.string.isRequired,
@@ -51,19 +76,22 @@ export class CommentCell extends Component {
   };
 
   static defaultProps = {
-    isVisible: true,
     kids: [],
     kidsItems: [],
   };
 
-  componentDidMount() {
-    if (this.props.id === 11187622 && this.props.kids.length !== this.props.kidsItems.length) {
-      this.fetchKidsItems();
-    }
-  }
+  state = {
+    expanded: true,
+  };
 
   fetchKidsItems = () => {
     this.props.fetchItems(this.props.kids);
+  };
+
+  toggleExpanded = () => {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
   };
 
   render() {
@@ -76,7 +104,9 @@ export class CommentCell extends Component {
       if (needsToLoadKids) {
         kidContent = (
           <TouchableOpacity onPress={this.fetchKidsItems}>
-            <Text>Load Children</Text>
+            <View style={styles.loadChildren}>
+              <Text style={styles.loadChildrenText}>Load Children</Text>
+            </View>
           </TouchableOpacity>
         );
       } else {
@@ -92,16 +122,31 @@ export class CommentCell extends Component {
       }
     }
 
+    const expandedIcon = this.state.expanded ? 'caret-down' : 'caret-right';
+
+    const containerStyles = [
+      styles.container,
+      this.state.expanded ? styles.containerExpanded : null,
+      this.props.style,
+    ];
+
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text>{timeAgo(this.props.time)} ago </Text>
-          <Text>by {this.props.by}</Text>
-        </View>
+      <View style={containerStyles}>
+        <TouchableOpacity onPress={this.toggleExpanded}>
+          <View style={styles.header}>
+            <Icon name={expandedIcon} size={20} color="#333"
+              style={styles.expandedIcon}
+            />
+            <Text>{timeAgo(this.props.time)} ago </Text>
+            <Text>by {this.props.by}</Text>
+          </View>
+        </TouchableOpacity>
 
-        <HTMLView value={this.props.text} />
+        {this.state.expanded ? (
+          <HTMLView value={this.props.text} />
+        ) : null}
 
-        {kidContent}
+        {this.state.expanded ? kidContent : null}
       </View>
     );
   }

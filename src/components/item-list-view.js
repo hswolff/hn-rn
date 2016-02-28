@@ -4,16 +4,10 @@ import React, {
   ListView,
 } from 'react-native';
 
-import ItemCell from './item-cell';
-
-export default class ItemList extends Component {
+export default class ItemListView extends Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
-    onRowPress: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    onRowPress: () => ({}),
+    renderRow: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -40,15 +34,7 @@ export default class ItemList extends Component {
         initialListSize={20}
         pageSize={10}
         dataSource={this.state.dataSource}
-        renderRow={(rowData, sectionId, rowId) => {
-          return (
-            <ItemCell
-              {...rowData}
-              cellNumber={parseInt(rowId, 10) + 1}
-              onPress={() => this.props.onRowPress(rowData)}
-            />
-          );
-        }}
+        renderRow={this.props.renderRow}
         {...this.props}
       />
     );
