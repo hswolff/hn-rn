@@ -66,6 +66,7 @@ export default class ItemListView extends Component {
         dataSource={this.state.dataSource}
         renderRow={this.props.renderRow}
         refreshControl={refreshControl}
+        enableEmptySections={true} // eslint-disable-line
         {...this.props}
       />
     );
